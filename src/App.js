@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState,useEffect}from 'react'
+import NavBar from './NavBar'
 
-function App() {
+const App = (props) => {
+  const[loggedIn,setLoggedIn]  = useState(false)
+
+  function handleAuth(){
+    setLoggedIn(!loggedIn)
+  }
+
+  useEffect(()=>{
+    if(JSON.parse(localStorage.getItem('userData'))){
+      handleAuth()
+    }
+  },[])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="mx-auto p-2" style={{width: 600}}>
+      <NavBar loggedIn={loggedIn} handleAuth={handleAuth}/>
     </div>
-  );
+    
+  )
 }
-
-export default App;
+export default App
